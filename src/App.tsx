@@ -12,27 +12,27 @@ import Details from './pages/Details';
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
+        <Routes>
+          <Route element={<MainLayout />}>
 
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/library" element={<Library />} />
-          <Route path="/settings" element={<Settings />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/library" element={<Library />} />
+            <Route path="/settings" element={<Settings />} />
 
-          {/* Details Page */}
-          <Route
-            path="/title/:type/:id"
-            element={<Details />}
-          />
+            {/* Details */}
+            <Route
+              path="/title/:type/:id"
+              element={<Details />}
+            />
 
-          {/* Player */}
-          <Route
-            path="/player/:id"
-            element={<Player />}
-          />
-        </Route>
+            {/* Player */}
+            <Route
+              path="/play/:type/:id"
+              element={<Player />}
+            />
 
+          </Route>
       </Routes>
     </BrowserRouter>
   );
