@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/* ========================================
+  1. THEME CONFIGURATION (Tailwind v4)
+  ========================================
+*/
+@theme {
+  /* Colors */
+  --color-brand-red: #E50914; /* Netflix Red */
+  --color-brand-dark: #141414; /* Deep gray/black background */
+  --color-brand-black: #000000;
+  --color-brand-gray: #808080;
+  --color-brand-light: #E5E5E5;
+
+  /* Font Families (Optional: Add a clean sans-serif like Inter if installed) */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ========================================
+  2. BASE LAYER (Native Desktop Feel)
+  ========================================
+*/
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-brand-dark text-brand-light font-sans antialiased overflow-x-hidden;
+    
+    /* CRITICAL: Prevents text highlighting and makes it feel like a real .exe */
+    user-select: none;
+    -webkit-user-select: none;
+    
+    /* Prevents dragging images to the desktop */
+    -webkit-user-drag: none;
+  }
+
+  /* Re-enable selection ONLY where the user actually needs to type */
+  input, 
+  textarea {
+    @apply select-auto;
+  }
+
+  /* Smooth scrolling globally */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ========================================
+  3. UTILITIES LAYER (Reusable UI Effects)
+  ========================================
+*/
+@layer utilities {
+  
+  /* Hide scrollbars globally but keep scrolling functionality.
+    Essential for horizontal movie rows! 
+  */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari and Opera */
+  }
+
+  /* Glassmorphism Effect
+    Use this for the Sidebar, sticky headers, or modal backgrounds 
+  */
+  .glass-panel {
+    @apply bg-brand-black/60 backdrop-blur-md border-r border-white/5;
+  }
+
+  /* Cinematic Image Overlays
+    Fades the bottom of the Hero banner smoothly into the background 
+  */
+  .gradient-fade-bottom {
+    background: linear-gradient(
+      to top, 
+      rgba(20, 20, 20, 1) 0%, /* Matches --color-brand-dark */
+      rgba(20, 20, 20, 0) 100%
+    );
+  }
+
+  .gradient-fade-right {
+    background: linear-gradient(
+      to right, 
+      rgba(20, 20, 20, 1) 0%, 
+      rgba(20, 20, 20, 0) 100%
+    );
+  }
+
+  /* Movie Card Hover Effect
+    Snappy, optimized scale without blurring the image 
+  */
+  .card-hover {
+    @apply transition-transform duration-300 ease-out will-change-transform hover:scale-105 hover:z-10 cursor-pointer;
+  }
+}
