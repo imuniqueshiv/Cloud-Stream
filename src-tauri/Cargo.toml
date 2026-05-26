@@ -1,14 +1,10 @@
 [package]
 name = "app"
 version = "0.1.0"
-description = "A Tauri App"
+description = "A production-ready media streaming backend"
 authors = ["you"]
-license = ""
-repository = ""
 edition = "2021"
 rust-version = "1.77.2"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
 name = "app_lib"
@@ -18,21 +14,26 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 tauri-build = { version = "2.6.2", features = [] }
 
 [dependencies]
-serde_json = "1.0"
+# Serialization
 serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Async & Networking
+tokio = { version = "1", features = ["full"] }
+axum = "0.7"
+tower-http = { version = "0.5", features = ["cors", "fs"] }
+base64 = "0.22"
+urlencoding = "2.1"
+async-trait = "0.1"
+
+# HTTP Client (using rustls for maximum stability on Windows)
+reqwest = { version = "0.12", default-features = false, features = ["json", "stream", "rustls-tls"] }
+
+# Scraping
+scraper = "0.22"
+
+# Logging & Observability
 log = "0.4"
 tauri = { version = "2.11.2", features = [] }
 tauri-plugin-log = "2"
-
-# --- Streaming Proxy & Scraper Dependencies ---
-tokio = { version = "1", features = ["full"] }
-axum = "0.7"
-tower-http = { version = "0.5", features = ["cors"] }
-base64 = "0.22"
-
-# Note: Added the "json" feature alongside your existing "stream" feature
-reqwest = { version = "0.12", features = ["stream", "json"] }
-
-# --- Added for Provider Architecture ---
-async-trait = "0.1"
-scraper = "0.22" # Using the latest compatible version
+dotenvy = "0.15.7"
